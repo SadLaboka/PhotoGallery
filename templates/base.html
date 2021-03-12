@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <style>
+        .image-thumbail {
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+{% block navbar %}
+    {% include 'inc/_nav.html' %}
+{% endblock navbar %}
+<div class="m-5"></div>
+<div class="container">
+    <div class="row">
+        {% block sidebar %}
+
+            {% include 'inc/_sidebar.html' %}
+
+        {% endblock %}
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card my-2">
+                    <img src="https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/113208872/original/ed05c600b6286111f200856463782c01f8976d91/help-you-learn-python-programming-language.jpg"
+                         class="image-thumbail">
+                    <div class="card-body">
+                        <small>Категория: <a href="#">Python</a> | Автор: <a href="#">Author</a></small>
+                    </div>
+                        <a class="btn btn-outline-dark" href="#">Просмотреть</a>
+                </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card my-2">
+                    <img src="https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/113208872/original/ed05c600b6286111f200856463782c01f8976d91/help-you-learn-python-programming-language.jpg"
+                         class="image-thumbail">
+                    <div class="card-body">
+                        <small>Категория: <a href="#">Python</a> | Автор: <a href="#">Author</a></small>
+                    </div>
+                        <a class="btn btn-outline-dark" href="#">Просмотреть</a>
+                </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card my-2">
+                    <img src="https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/113208872/original/ed05c600b6286111f200856463782c01f8976d91/help-you-learn-python-programming-language.jpg"
+                         class="image-thumbail">
+                    <div class="card-body">
+                        <small>Категория: <a href="#">Python</a> | Автор: <a href="#">Author</a></small>
+                    </div>
+                        <a class="btn btn-outline-dark" href="#">Просмотреть</a>
+                </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card my-2">
+                    <img src="https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/113208872/original/ed05c600b6286111f200856463782c01f8976d91/help-you-learn-python-programming-language.jpg"
+                         class="image-thumbail">
+                    <div class="card-body">
+                        <small>Категория: <a href="#">Python</a> | Автор: <a href="#">Author</a></small>
+                    </div>
+                        <a class="btn btn-outline-dark" href="#">Просмотреть</a>
+                </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card my-2">
+                    <img src="https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/113208872/original/ed05c600b6286111f200856463782c01f8976d91/help-you-learn-python-programming-language.jpg"
+                         class="image-thumbail">
+                    <div class="card-body">
+                        <small>Категория: <a href="#">Python</a> | Автор: <a href="#">Author</a></small>
+                    </div>
+                        <a class="btn btn-outline-dark" href="#">Просмотреть</a>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% block footer %}
+    {% include 'inc/_footer.html' %}
+{% endblock footer %}
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+</body>
+</html>
