@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 
 User = get_user_model()
 
@@ -7,9 +8,13 @@ User = get_user_model()
 class Category(models.Model):
     """Категории фотографий"""
     title = models.CharField(max_length=50, verbose_name='Категория')
+    slug = models.SlugField(verbose_name='Url', max_length=100, unique=True)
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('photos-by-category', kwargs={'slug': self.slug})
 
     class Meta:
         verbose_name = 'Категория'
@@ -46,3 +51,6 @@ class Photo(models.Model):
     class Meta:
         verbose_name = 'Фотография'
         verbose_name_plural = 'Фотографии'
+
+    def get_absolute_url(self):
+        return reverse('photo-detail', kwargs={'pk': self.pk})

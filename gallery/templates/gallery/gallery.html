@@ -8,7 +8,7 @@
                 <img src="{{ photo.image.url }}"
                      class="image-thumbail">
                 <div class="card-body">
-                    <small>Категория: <a href="#">{{ photo.category }}</a></a></small>
+                    <small>Категория: <a href="{{ photo.category.get_absolute_url }}">{{ photo.category }}</a></a></small>
                 </div>
                 <a class="btn btn-outline-dark" href="#">Просмотреть</a>
             </div>
