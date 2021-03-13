@@ -20,6 +20,7 @@ class Album(models.Model):
     """Альбомы для фотографий"""
     title = models.CharField(max_length=100, verbose_name='Название')
     owner = models.ForeignKey(User, verbose_name='Владелец', on_delete=models.CASCADE)
+    image = models.ImageField(verbose_name='Изображение', upload_to='Albums/%Y/%m/%d/', null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -33,7 +34,7 @@ class Photo(models.Model):
     """Фотографии"""
     title = models.CharField(max_length=50, verbose_name='Название')
     description = models.TextField(verbose_name='Описание', null=True, blank=True)
-    image = models.ImageField(verbose_name='Фото')
+    image = models.ImageField(verbose_name='Фото', upload_to='Photo/%Y/%m/%d/')
     category = models.ForeignKey(Category, verbose_name='Категория', on_delete=models.SET_NULL, null=True)
     album = models.ForeignKey(Album, verbose_name='Альбом', on_delete=models.SET_NULL, null=True, blank=True)
     is_public = models.BooleanField(verbose_name='Публичность', default=False)

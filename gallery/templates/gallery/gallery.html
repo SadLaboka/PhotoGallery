@@ -2,56 +2,18 @@
 {% block content %}
 <div class="col-md-9">
     <div class="row">
+        {% for photo in photos %}
         <div class="col-md-4">
             <div class="card my-2">
-                <img src="https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/113208872/original/ed05c600b6286111f200856463782c01f8976d91/help-you-learn-python-programming-language.jpg"
+                <img src="{{ photo.image.url }}"
                      class="image-thumbail">
                 <div class="card-body">
-                    <small>Категория: <a href="#">Python</a> | Автор: <a href="#">Author</a></small>
+                    <small>Категория: <a href="#">{{ photo.category }}</a></a></small>
                 </div>
                 <a class="btn btn-outline-dark" href="#">Просмотреть</a>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card my-2">
-                <img src="https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/113208872/original/ed05c600b6286111f200856463782c01f8976d91/help-you-learn-python-programming-language.jpg"
-                     class="image-thumbail">
-                <div class="card-body">
-                    <small>Категория: <a href="#">Python</a> | Автор: <a href="#">Author</a></small>
-                </div>
-                <a class="btn btn-outline-dark" href="#">Просмотреть</a>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card my-2">
-                <img src="https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/113208872/original/ed05c600b6286111f200856463782c01f8976d91/help-you-learn-python-programming-language.jpg"
-                     class="image-thumbail">
-                <div class="card-body">
-                    <small>Категория: <a href="#">Python</a> | Автор: <a href="#">Author</a></small>
-                </div>
-                <a class="btn btn-outline-dark" href="#">Просмотреть</a>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card my-2">
-                <img src="https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/113208872/original/ed05c600b6286111f200856463782c01f8976d91/help-you-learn-python-programming-language.jpg"
-                     class="image-thumbail">
-                <div class="card-body">
-                    <small>Категория: <a href="#">Python</a> | Автор: <a href="#">Author</a></small>
-                </div>
-                <a class="btn btn-outline-dark" href="#">Просмотреть</a>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card my-2">
-                <img src="https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/113208872/original/ed05c600b6286111f200856463782c01f8976d91/help-you-learn-python-programming-language.jpg"
-                     class="image-thumbail">
-                <div class="card-body">
-                    <small>Категория: <a href="#">Python</a> | Автор: <a href="#">Author</a></small>
-                </div>
-                <a class="btn btn-outline-dark" href="#">Просмотреть</a>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock content %}
