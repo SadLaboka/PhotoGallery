@@ -1,9 +1,9 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.shortcuts import redirect
 from django.urls import reverse
 
 User = get_user_model()
-
 
 class Category(models.Model):
     """Категории фотографий"""

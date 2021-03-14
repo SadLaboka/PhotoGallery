@@ -5,7 +5,7 @@
     <div class="card my-2">
         <img src="{{ photo.image.url }}"
              class="image-thumbail">
-        <a class="btn btn-outline-dark" href="#">Просмотреть</a>
+        <a class="btn btn-outline-dark" href="{{ photo.get_absolute_url }}">Просмотреть</a>
     </div>
 </div>
 {% endfor %}
