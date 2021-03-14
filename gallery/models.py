@@ -7,7 +7,7 @@ User = get_user_model()
 
 class Category(models.Model):
     """Категории фотографий"""
-    title = models.CharField(max_length=50, verbose_name='Категория')
+    title = models.CharField(max_length=50, verbose_name='Название категории')
     slug = models.SlugField(verbose_name='Url', max_length=100, unique=True)
 
     def __str__(self):
@@ -40,10 +40,18 @@ class Photo(models.Model):
     title = models.CharField(max_length=50, verbose_name='Название')
     description = models.TextField(verbose_name='Описание', null=True, blank=True)
     image = models.ImageField(verbose_name='Фото', upload_to='Photo/%Y/%m/%d/')
-    category = models.ForeignKey(Category, verbose_name='Категория', on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(
+        Category,
+        verbose_name='Категория',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='photos'
+    )
     album = models.ForeignKey(Album, verbose_name='Альбом', on_delete=models.SET_NULL, null=True, blank=True)
     is_public = models.BooleanField(verbose_name='Публичность', default=False)
     owner = models.ForeignKey(User, verbose_name='Владелец', on_delete=models.CASCADE)
+    views = models.IntegerField(verbose_name='Количество просмотров', default=0)
 
     def __str__(self):
         return self.title

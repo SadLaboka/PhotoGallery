@@ -1,9 +1,16 @@
 <div class="col-md-3">
-    <div class="card" style="width: 18rem;">
-        <div class="card-header">
+    <div class="card" style="width: 18rem; background: #212529;">
+        <div class="card-header" style="color: white; font-size: 20px;">
             Категории
         </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">An item</li>
+        <div class="list-group">
+            {% for category in categories %}
+            {% if category.photos.count %}
+            <a href="{{ category.get_absolute_url }}" class="list-group-item list-group-item-action">
+                {{ category.title }}
+            </a>
+            {% endif %}
+            {% endfor %}
+        </div>
     </div>
 </div>

@@ -25,4 +25,6 @@ class PhotosByCategory(View):
 
 class PhotoDetailView(DetailView):
 
-    template_name = 'gallery/photo-detail.html'
+    model = Photo
+    template_name = 'gallery/photo_detail.html'
+    context_object_name = 'photo'
