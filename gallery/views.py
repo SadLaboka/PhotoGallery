@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import DetailView
 
 from .models import Photo, Category, Album
 
@@ -23,8 +22,13 @@ class PhotosByCategory(View):
         return render(request, 'gallery/category_gallery.html', context)
 
 
-class PhotoDetailView(DetailView):
+class PhotoDetailView(View):
 
-    model = Photo
-    template_name = 'gallery/photo_detail.html'
-    context_object_name = 'photo'
+    def get(self, request, *args, **kwargs):
+        photo = Photo.objects.get(pk=kwargs['pk'])
+        if request.META.get('HTTP_REFERER'):
+            previous_link = request.META['HTTP_REFERER']
+        else:
+            previous_link = r'/'
+        context = {'photo': photo, 'previous': previous_link}
+        return render(request, 'gallery/photo_detail.html', context)
