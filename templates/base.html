@@ -21,6 +21,27 @@
 <div class="mt-5">
     <div class="container">
         <div class="row">
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    {% if message.tags == 'error' %}
+
+                        <div class="alert alert-danger mt-4" role="alert">
+                            {{ message }}
+                        </div>
+
+                    {% else %}
+
+                        <div class="alert alert-{{ message.tags }} mt-4" role="alert">
+                            {{ message }}
+                        </div>
+
+                    {% endif %}
+
+                {% endfor %}
+
+            {% endif %}
             {% block sidebar %}
 
             {% include 'inc/_sidebar.html' %}

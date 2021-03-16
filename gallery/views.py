@@ -1,9 +1,10 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import login, logout
 
 from .models import Photo, Category, Album
-from .forms import LoginForm
+from .forms import LoginForm, UserRegisterForm
 
 
 class GalleryView(View):
@@ -53,3 +54,19 @@ def user_logout(request):
     """Выходит"""
     logout(request)
     return redirect('home')
+
+
+def register(request):
+    """Регистирует пользователя"""
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Вы успешно зарегистрировались')
+            return redirect('home')
+        else:
+            messages.error(request, 'Ошибка регистрации')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'gallery/register.html', context={'form': form})
