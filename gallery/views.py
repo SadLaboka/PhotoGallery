@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 
 from .models import Photo, Category, Album
 from .forms import LoginForm
@@ -37,6 +37,7 @@ class PhotoDetailView(View):
 
 
 def user_login(request):
+    """Авторизирует пользователя"""
     if request.method == 'POST':
         form = LoginForm(data=request.POST)
         if form.is_valid():
@@ -46,3 +47,9 @@ def user_login(request):
     else:
         form = LoginForm()
     return render(request, 'gallery/login.html', context={'form': form})
+
+
+def user_logout(request):
+    """Выходит"""
+    logout(request)
+    return redirect('home')
