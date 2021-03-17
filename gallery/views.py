@@ -45,6 +45,14 @@ class UserProfile(View):
         return render(request, 'gallery/profile.html', context)
 
 
+class UserAlbums(View):
+    """Альбомы пользователя"""
+    def get(self, request, *args, **kwargs):
+        albums = Album.objects.filter(owner=request.user)
+        context = {'albums': albums}
+        return render(request, 'gallery/albums.html', context)
+
+
 def user_login(request):
     """Авторизирует пользователя"""
     if request.method == 'POST':

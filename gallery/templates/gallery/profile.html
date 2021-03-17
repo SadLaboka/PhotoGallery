@@ -1,8 +1,25 @@
 {% extends 'base.html' %}
 {% block sidebar %}
+<div class="col-md-3 mt-5">
+    <div class="card" style="width: 18rem; background: #212529;">
+        <div class="card-header" style="color: white; font-size: 20px;">
+            Меню
+        </div>
+        <div class="list-group">
+            <a href="{% url 'albums' %}" class="list-group-item list-group-item-action">
+                Мои альбомы
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+                Что-то еще
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+                И еще
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock sidebar %}
 {% block content %}
-<div class="container mx-auto">
 <div class="col-md-9 mt-4">
     <div class="row">
         {% for photo in photos %}
@@ -16,5 +33,4 @@
         {% endfor %}
     </div>
 </div>
-    </div>
 {% endblock content %}
