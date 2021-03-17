@@ -5,8 +5,9 @@ from django.urls import reverse
 
 User = get_user_model()
 
+
 class Category(models.Model):
-    """Категории фотографий"""
+    """Общие категории фотографий"""
     title = models.CharField(max_length=50, verbose_name='Название категории')
     slug = models.SlugField(verbose_name='Url', max_length=100, unique=True)
 
@@ -22,7 +23,7 @@ class Category(models.Model):
 
 
 class Album(models.Model):
-    """Альбомы для фотографий"""
+    """Пользовательские альбомы для фотографий"""
     title = models.CharField(max_length=100, verbose_name='Название')
     owner = models.ForeignKey(User, verbose_name='Владелец', on_delete=models.CASCADE)
     image = models.ImageField(verbose_name='Изображение', upload_to='Albums/%Y/%m/%d/', null=True, blank=True)

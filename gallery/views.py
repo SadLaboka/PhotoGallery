@@ -37,6 +37,14 @@ class PhotoDetailView(View):
         return render(request, 'gallery/photo_detail.html', context)
 
 
+class UserProfile(View):
+    """Личная страница пользователя"""
+    def get(self, request, *args, **kwargs):
+        photo = Photo.objects.filter(owner=request.user)
+        context = {'photos': photo}
+        return render(request, 'gallery/profile.html', context)
+
+
 def user_login(request):
     """Авторизирует пользователя"""
     if request.method == 'POST':
