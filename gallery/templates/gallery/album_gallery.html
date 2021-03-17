@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Альбом | {{ current_album.title }}{% endblock title %}
+{% block sidebar %}
+<div class="col-md-3 mt-5">
+    <div class="card" style="width: 18rem; background: #212529;">
+        <div class="card-header" style="color: white; font-size: 20px;">
+            Меню
+        </div>
+        <div class="list-group">
+            <a href="{% url 'albums' %}" class="list-group-item list-group-item-action">
+                Мои альбомы
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock sidebar %}
+{% block content %}
+{% for photo in photos %}
+<div class="col-md-4 mt-4">
+    <div class="card my-2">
+        <img src="{{ photo.image.url }}"
+             class="image-thumbail">
+        <a class="btn btn-outline-dark" href="{{ photo.get_absolute_url }}">Просмотреть</a>
+    </div>
+</div>
+{% endfor %}
+{% endblock content %}

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block title %}Альбомы{% endblock title %}
 {% block sidebar %}
 <div class="col-md-3 mt-5">
     <div class="card" style="width: 18rem; background: #212529;">
@@ -6,9 +7,6 @@
             Меню
         </div>
         <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action">
-                Мои альбомы
-            </a>
             <a href="#" class="list-group-item list-group-item-action">
                 Добавить альбом
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="red"
@@ -39,7 +37,7 @@
                 <img src="https://www.svoimi-rukamy.com/wp-content/uploads/2015/06/skarpbuking.jpg"
                      class="image-thumbail">
                 {% endif %}
-                <a class="btn btn-outline-dark" href="{{ photo.get_absolute_url }}">Просмотреть</a>
+                <a class="btn btn-outline-dark" href="{{ album.get_absolute_url }}">{{ album.title }}</a>
             </div>
         </div>
         {% endfor %}

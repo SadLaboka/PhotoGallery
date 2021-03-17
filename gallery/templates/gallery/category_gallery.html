@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block title %}Категория | {{ current_category.title }}{% endblock title %}
 {% block content %}
 {% for photo in photos %}
 <div class="col-md-4 mt-4">

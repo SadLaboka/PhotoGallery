@@ -4,6 +4,7 @@ from .views import (
     GalleryView,
     PhotoDetailView,
     PhotosByCategory,
+    PhotosByAlbums,
     UserProfile,
     UserAlbums,
     user_login,
@@ -18,6 +19,7 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('profile/', UserProfile.as_view(), name='profile'),
     path('profile/albums/', UserAlbums.as_view(), name='albums'),
+    path('profile/albums/<int:pk>/', PhotosByAlbums.as_view(), name='photos-by-album'),
     path('photo/<int:pk>/', PhotoDetailView.as_view(), name='photo-detail'),
     path('category/<str:slug>/', PhotosByCategory.as_view(), name='photos-by-category'),
 ]

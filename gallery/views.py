@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import login, logout
+from django.http import HttpResponseNotFound
 
 from .models import Photo, Category, Album
 from .forms import LoginForm, UserRegisterForm
@@ -20,9 +21,22 @@ class PhotosByCategory(View):
     """Вывод фото по категориям"""
     def get(self, request, *args, **kwargs):
         categories = Category.objects.all()
+        current_category = Category.objects.get(slug=kwargs['slug'])
         photos = Photo.objects.filter(category__slug=kwargs['slug'])
-        context = {'categories': categories, 'photos': photos}
+        context = {'categories': categories, 'photos': photos, 'current_category': current_category}
         return render(request, 'gallery/category_gallery.html', context)
+
+
+class PhotosByAlbums(View):
+    """Вывод фото из конкретного альбома"""
+    def get(self, request, *args, **kwargs):
+        current_album = Album.objects.get(pk=kwargs['pk'])
+        if current_album.owner != request.user:
+            return HttpResponseNotFound('<h1>Page not found</h1>')
+        photos = Photo.objects.filter(album__pk=kwargs['pk'])
+        print(photos)
+        context = {'current_album': current_album, 'photos': photos}
+        return render(request, 'gallery/album_gallery.html', context)
 
 
 class PhotoDetailView(View):
