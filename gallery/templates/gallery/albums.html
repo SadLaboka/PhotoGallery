@@ -7,6 +7,15 @@
             Меню
         </div>
         <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action" style="background: #bababa;">
+                Мои альбомы
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="green"
+                     class="bi bi-journal-album me-4" viewBox="0 0 16 16">
+                    <path d="M5.5 4a.5.5 0 0 0-.5.5v5a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 .5-.5v-5a.5.5 0 0 0-.5-.5h-5zm1 7a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3z"/>
+                    <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                    <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                </svg>
+            </a>
             <a href="{% url 'add-album' %}" class="list-group-item list-group-item-action">
                 Добавить альбом
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="red"
@@ -14,7 +23,7 @@
                     <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z"/>
                 </svg>
             </a>
-            <a href="{% url 'profile' %}" class="list-group-item list-group-item-action" style="background: #bababa;">
+            <a href="{% url 'profile' %}" class="list-group-item list-group-item-action">
                 <strong>Вернуться в кабинет</strong>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                      class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
@@ -31,13 +40,15 @@
         {% for album in albums %}
         <div class="col-md-4">
             <div class="card my-2">
-                {% if album.image %}
-                <img src="{{ album.image.url }}" class="image-thumbail">
-                {% else %}
-                <img src="https://www.svoimi-rukamy.com/wp-content/uploads/2015/06/skarpbuking.jpg"
-                     class="image-thumbail">
-                {% endif %}
+                    {% if album.image %}
+                    <img src="{{ album.image.url }}" class="image-thumbail">
+                    {% else %}
+                    <img src="https://www.svoimi-rukamy.com/wp-content/uploads/2015/06/skarpbuking.jpg"
+                         class="image-thumbail">
+                    {% endif %}
+
                 <a class="btn btn-outline-dark" href="{{ album.get_absolute_url }}">{{ album.title }}</a>
+                <a class="btn btn-outline-danger mt-1" href="{% url 'delete-album' pk=album.pk %}">Удалить</a>
             </div>
         </div>
         {% endfor %}

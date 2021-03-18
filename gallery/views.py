@@ -85,9 +85,19 @@ class CreateAlbum(View):
             messages.success(request, 'Альбом успешно добавлен')
             return HttpResponseRedirect('/profile/albums/')
         else:
-            messages.error(request, 'Ошибка создания')
+            messages.error(request, 'Ошибка добавления')
             context = {'form': form}
         return render(request, 'gallery/add_album.html', context)
+
+
+class DeleteAlbum(View):
+    """Удаление выбранного альбома"""
+    def get(self, request, *args, **kwargs):
+        album_pk = kwargs.get('pk')
+        album = Album.objects.get(pk=album_pk)
+        album.delete()
+        messages.info(request, 'Альбом успешно удален')
+        return HttpResponseRedirect('/profile/albums/')
 
 
 def user_login(request):
