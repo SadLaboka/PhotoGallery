@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
+from .models import Album
+
 
 class LoginForm(AuthenticationForm):
     """Форма авторизации"""
@@ -19,3 +21,13 @@ class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')
+
+
+class AddAlbumForm(forms.ModelForm):
+    """Форма добавления альбома"""
+    title = forms.CharField(label='Название альбома', widget=forms.TextInput)
+    image = forms.ImageField(label='Изображение для альбома', required=False)
+
+    class Meta:
+        model = Album
+        fields = ('title', 'image')

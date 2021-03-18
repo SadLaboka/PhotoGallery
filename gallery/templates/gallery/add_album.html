@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% block title %}Альбомы{% endblock title %}
+{% load crispy_forms_tags %}
+{% block title %}Создать альбом{% endblock title %}
 {% block sidebar %}
 <div class="col-md-3 mt-5">
     <div class="card" style="width: 18rem; background: #212529;">
@@ -7,7 +8,7 @@
             Меню
         </div>
         <div class="list-group">
-            <a href="{% url 'add-album' %}" class="list-group-item list-group-item-action">
+            <a href="#" class="list-group-item list-group-item-action">
                 Добавить альбом
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="red"
                      class="bi bi-patch-plus-fill me-4" viewBox="0 0 16 16">
@@ -26,21 +27,21 @@
 </div>
 {% endblock sidebar %}
 {% block content %}
-<div class="col-md-9 mt-4">
-    <div class="row">
-        {% for album in albums %}
-        <div class="col-md-4">
-            <div class="card my-2">
-                {% if album.image %}
-                <img src="{{ album.image.url }}" class="image-thumbail">
-                {% else %}
-                <img src="https://www.svoimi-rukamy.com/wp-content/uploads/2015/06/skarpbuking.jpg"
-                     class="image-thumbail">
-                {% endif %}
-                <a class="btn btn-outline-dark" href="{{ album.get_absolute_url }}">{{ album.title }}</a>
+<div class="m-5">
+    <div class="container justify-content-center">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                    <h3 class="text-center">Создание альбома</h3>
+                    <hr>
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                    <div class="d-grid gap-2">
+                    <input type="submit" class="btn btn-danger btn-lg mt-2" value="Создать">
+                    </div>
+                    </form>
             </div>
         </div>
-        {% endfor %}
     </div>
 </div>
 {% endblock content %}

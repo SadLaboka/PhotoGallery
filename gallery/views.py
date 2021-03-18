@@ -2,10 +2,10 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import login, logout
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound, HttpResponseRedirect
 
 from .models import Photo, Category, Album
-from .forms import LoginForm, UserRegisterForm
+from .forms import LoginForm, UserRegisterForm, AddAlbumForm
 
 
 class GalleryView(View):
@@ -65,6 +65,29 @@ class UserAlbums(View):
         albums = Album.objects.filter(owner=request.user)
         context = {'albums': albums}
         return render(request, 'gallery/albums.html', context)
+
+
+class CreateAlbum(View):
+    """Создание альбома пользователя"""
+    def get(self, request, *args, **kwargs):
+        form = AddAlbumForm(request.POST or None)
+        context = {'form': form}
+        return render(request, 'gallery/add_album.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = AddAlbumForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            new_album = form.save(commit=False)
+            new_album.owner = request.user
+            new_album.title = form.cleaned_data['title']
+            new_album.image = form.cleaned_data['image']
+            new_album.save()
+            messages.success(request, 'Альбом успешно добавлен')
+            return HttpResponseRedirect('/profile/albums/')
+        else:
+            messages.error(request, 'Ошибка создания')
+            context = {'form': form}
+        return render(request, 'gallery/add_album.html', context)
 
 
 def user_login(request):
