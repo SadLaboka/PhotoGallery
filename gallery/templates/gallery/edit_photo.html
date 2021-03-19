@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Просмотр фото{% endblock title %}
+{% block sidebar %}
+{% endblock sidebar %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col"><a href="{{ previous }}" class="btn btn-dark my-4">Go Back</a></div>
+        <div class="col d-flex justify-content-start">
+
+            <div style="height: 90vh;">
+                <img style="max-width: 100%; max-height: 100%;" src="{{photo.image.url}}">
+            </div>
+
+        </div>
+        <div class="col">
+            <div class="row justify-content-center">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="m-3">
+                        <label class="form-label">Название</label>
+                        <input name="title" type="text" class="form-control" value="{{ photo.title }}">
+                    </div>
+                    <div class="m-3">
+                        <label class="form-label">Категория</label>
+                        <select name="category" class="form-select">
+                            {% if not photo.category %}
+                            <option value="none">Без категории</option>
+                            {% else %}
+                            <option value="{{ photo.category.slug }}">{{ photo.category.title }}</option>
+                            <option value="none">Без категории</option>
+                            {% endif %}
+                            {% for category in categories %}
+                            {% if not category == photo.category %}
+                            <option value="{{ category.slug }}">{{ category.title }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="m-3">
+                        <label class="form-label">Альбом</label>
+                        <select name="album" class="form-select">
+                            {% if not photo.album %}
+                            <option value="none">Без альбома</option>
+                            {% else %}
+                            <option value="{{ photo.album.pk }}">{{ photo.album.title }}</option>
+                            <option value="none">Без альбома</option>
+                            {% endif %}
+                            {% for album in albums %}
+                            {% if not album == photo.album %}
+                            <option value="{{ album.pk }}">{{ album.title }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+
+                        <div class="m-3">
+                            <label class="form-label">Описание</label>
+                            <input name="description" type="text" class="form-control" value="{{ photo.description }}">
+                        </div>
+                        <div class="form-check form-switch m-3">
+                            <input {% if photo.is_public %}checked{% endif %} name="is_public" value="1" type="checkbox" class="form-check-input">
+                            <label class="form-check-label">Публичное?</label>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success">Изменить</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

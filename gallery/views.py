@@ -67,8 +67,43 @@ class PhotoManagement(View):
         return render(request, 'gallery/photo_management.html', context)
 
 
+class EditPhoto(View):
+    """Страница изменения фото"""
+    def get(self, request, *args, **kwargs):
+        photo = Photo.objects.get(pk=kwargs['pk'])
+        categories = Category.objects.all()
+        albums = Album.objects.filter(owner=request.user)
+        if request.META.get('HTTP_REFERER'):
+            previous_link = request.META['HTTP_REFERER']
+        else:
+            previous_link = r'/'
+        context = {'photo': photo, 'previous': previous_link, 'categories': categories, 'albums': albums}
+        return render(request, 'gallery/edit_photo.html', context)
+
+    def post(self, request, *args, **kwargs):
+        photo = Photo.objects.get(pk=kwargs['pk'])
+        data = request.POST
+        print(data)
+        photo.title = data['title']
+        if data['category'] != 'none':
+            photo.category = Category.objects.get(slug=data['category'])
+        else:
+            photo.category = None
+        if data['album'] != 'none':
+            photo.album = Album.objects.get(pk=data['album'])
+        else:
+            photo.album = None
+        photo.description = data['description']
+        if data.get('is_public'):
+            photo.is_public = True
+        else:
+            photo.is_public = False
+        photo.save(update_fields=['title', 'category', 'album', 'description', 'is_public'])
+        return redirect('photo-management')
+
+
 class DeletePhoto(View):
-    """Удаление выбранного альбома"""
+    """Удаление выбранного фото"""
     def get(self, request, *args, **kwargs):
         photo_pk = kwargs.get('pk')
         photo = Photo.objects.get(pk=photo_pk)
