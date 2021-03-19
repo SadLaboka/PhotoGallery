@@ -59,6 +59,24 @@ class UserProfile(View):
         return render(request, 'gallery/profile.html', context)
 
 
+class PhotoManagement(View):
+    """Страница для управления фото"""
+    def get(self, request, *args, **kwargs):
+        photos = Photo.objects.filter(owner=request.user)
+        context = {'photos': photos}
+        return render(request, 'gallery/photo_management.html', context)
+
+
+class DeletePhoto(View):
+    """Удаление выбранного альбома"""
+    def get(self, request, *args, **kwargs):
+        photo_pk = kwargs.get('pk')
+        photo = Photo.objects.get(pk=photo_pk)
+        photo.delete()
+        messages.info(request, 'Фото успешно удалено')
+        return HttpResponseRedirect('/profile/photos/')
+
+
 class UserAlbums(View):
     """Альбомы пользователя"""
     def get(self, request, *args, **kwargs):
