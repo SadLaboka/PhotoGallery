@@ -6,6 +6,7 @@ from .views import (
     PhotosByCategory,
     PhotosByAlbums,
     PhotoManagement,
+    AddPhoto,
     DeletePhoto,
     EditPhoto,
     UserProfile,
@@ -30,6 +31,7 @@ urlpatterns = [
     path('profile/photos/', PhotoManagement.as_view(), name='photo-management'),
     path('profile/photos/edit/<int:pk>/', EditPhoto.as_view(), name='edit-photo'),
     path('profile/photos/delete/<int:pk>', DeletePhoto.as_view(), name='delete-photo'),
+    path('photo/add/', AddPhoto.as_view(), name='add-photo'),
     path('photo/<int:pk>/', PhotoDetailView.as_view(), name='photo-detail'),
     path('category/<str:slug>/', PhotosByCategory.as_view(), name='photos-by-category'),
 ]

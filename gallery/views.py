@@ -5,7 +5,7 @@ from django.contrib.auth import login, logout
 from django.http import HttpResponseNotFound, HttpResponseRedirect
 
 from .models import Photo, Category, Album
-from .forms import LoginForm, UserRegisterForm, AddAlbumForm
+from .forms import LoginForm, UserRegisterForm, AddAlbumForm, AddPhotoForm
 
 
 class GalleryView(View):
@@ -62,9 +62,39 @@ class UserProfile(View):
 class PhotoManagement(View):
     """Страница для управления фото"""
     def get(self, request, *args, **kwargs):
-        photos = Photo.objects.filter(owner=request.user)
+        photos = Photo.objects.filter(owner=request.user).order_by('-pk')
         context = {'photos': photos}
         return render(request, 'gallery/photo_management.html', context)
+
+
+class AddPhoto(View):
+    """Страница добавления фотографий"""
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            form = AddPhotoForm(request.POST or None)
+            context = {'form': form}
+            return render(request, 'gallery/add_photo.html', context)
+        else:
+            redirect('login')
+
+    def post(self, request, *args, **kwargs):
+        form = AddPhotoForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            new_photo = form.save(commit=False)
+            new_photo.owner = request.user
+            new_photo.title = form.cleaned_data['title']
+            new_photo.description = form.cleaned_data['description']
+            new_photo.image = form.cleaned_data['image']
+            new_photo.category = form.cleaned_data['category']
+            new_photo.album = form.cleaned_data['album']
+            new_photo.is_public = form.cleaned_data['is_public']
+            new_photo.save()
+            messages.success(request, 'Фото успешно добавлено')
+            return HttpResponseRedirect('/profile/photos/')
+        else:
+            messages.error(request, 'Ошибка добавления')
+            context = {'form': form}
+        return render(request, 'gallery/add_photo.html', context)
 
 
 class EditPhoto(View):

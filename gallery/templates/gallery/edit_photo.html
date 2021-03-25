@@ -23,6 +23,10 @@
                         <input name="title" type="text" class="form-control" value="{{ photo.title }}">
                     </div>
                     <div class="m-3">
+                            <label class="form-label">Описание</label>
+                        <input name="description" type="text" class="form-control" value="{{ photo.description }}">
+                        </div>
+                    <div class="m-3">
                         <label class="form-label">Категория</label>
                         <select name="category" class="form-select">
                             {% if not photo.category %}
@@ -54,11 +58,8 @@
                             {% endfor %}
                         </select>
 
-                        <div class="m-3">
-                            <label class="form-label">Описание</label>
-                            <input name="description" type="text" class="form-control" value="{{ photo.description }}">
-                        </div>
-                        <div class="form-check form-switch m-3">
+
+                        <div class="form-check form-switch mt-3 mb-3">
                             <input {% if photo.is_public %}checked{% endif %} name="is_public" value="1" type="checkbox" class="form-check-input">
                             <label class="form-check-label">Публичное?</label>
                         </div>
