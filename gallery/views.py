@@ -11,7 +11,7 @@ from .forms import LoginForm, UserRegisterForm, AddAlbumForm, AddPhotoForm
 class GalleryView(View):
     """Главная"""
     def get(self, request, *args, **kwargs):
-        photos = Photo.objects.filter(is_public=True)
+        photos = Photo.objects.filter(is_public=True).order_by('-pk')
         categories = Category.objects.all()
         context = {'photos': photos, 'categories': categories}
         return render(request, 'gallery/gallery.html', context)
@@ -43,6 +43,9 @@ class PhotoDetailView(View):
     """Детальный просмотр фото"""
     def get(self, request, *args, **kwargs):
         photo = Photo.objects.get(pk=kwargs['pk'])
+        if request.user.is_authenticated:
+            photo.views += 1
+            photo.save()
         if request.META.get('HTTP_REFERER'):
             previous_link = request.META['HTTP_REFERER']
         else:
